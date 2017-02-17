@@ -14,11 +14,12 @@ configuration:
 
 environment:
   MSBUILD_FLAGS: /verbosity:minimal /maxcpucount
+  downloadLocation: "c:\\libraries"
   matrix:
     # VS 14 + Py2.7
     - generator: "Visual Studio 14"  
       PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7" 
+      PYTHON_VERSION: "2.7"
     # VS 14 + Py3.4
     - generator: "Visual Studio 14"  
       PYTHON: "C:\\Python34"
@@ -77,7 +78,7 @@ build_script:
     cmake ..
     -G "%generator%" 
     -DCMAKE_BUILD_TYPE=%configuration% 
-    -DCMAKE_INSTALL_PREFIX="c:/pycegui/install" 
+    -DCMAKE_INSTALL_PREFIX="./PyCEGUI/pyd" 
     -DCEGUI_BUILD_RENDERER_OPENGL="On"
   # build
   - cmake --build . --target ALL_BUILD --config %configuration% -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
@@ -90,9 +91,8 @@ after_build:
 
 
   # package pycegui artifact
-  - cd c:/pycegui/install
-  - 7z a -tzip -mx9 "%APPVEYOR_BUILD_FOLDER%\pycegui-%APPVEYOR_BUILD_VERSION%-%COMPILER%-%platform%.zip"
-  - appveyor PushArtifact "%APPVEYOR_BUILD_FOLDER%\pycegui-%APPVEYOR_BUILD_VERSION%-%COMPILER%-%platform%.zip"
+  - ps: ."$env:PYTHON\python.exe" setup.py bdist_wininst --target-version="$env:PYTHON_VERSION"
+  - appveyor PushArtifact ".\dist\PyCEGUI-*.exe"
 
 
 on_finish:

@@ -1,7 +1,6 @@
 #based on https://www.appveyor.com/docs/api/samples/download-artifacts-ps/
 
 $apiUrl = 'https://ci.appveyor.com/api'
-$downloadLocation = 'c:\libraries'
 $accountName = 'cegui-ci'
 $projectSlug = 'cegui'
 $branch = "v0-8"
@@ -20,7 +19,7 @@ $artifactFileName = $artifacts[0].fileName
 $localartifactFileName = [System.IO.Path]::GetFileName("$artifactFileName")
 
 # artifact will be downloaded as
-$localArtifactPath = "$downloadLocation\$localartifactFileName" 
+$localArtifactPath = "$env:downloadLocation\$localartifactFileName" 
 
 # download artifact
 # -OutFile - is local file name where artifact will be downloaded into
@@ -29,7 +28,7 @@ Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifact
 -OutFile $localArtifactPath
 
 $folder_name = [System.IO.Path]::GetFileNameWithoutExtension("$artifactFileName")
-$extract_dir = "$downloadLocation"
+$extract_dir = "$env:downloadLocation"
 7z x $localArtifactPath -o"$extract_dir"
-
-$env:CMAKE_PREFIX_PATH ="$env:CMAKE_PREFIX_PATH;$downloadLocation/$folder_name"
+$env:CEGUI_DIR = "$env:downloadLocation/$folder_name"
+$env:CMAKE_PREFIX_PATH ="$env:CMAKE_PREFIX_PATH;$env:CEGUI_DIR"

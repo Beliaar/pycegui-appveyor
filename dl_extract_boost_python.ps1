@@ -6,7 +6,6 @@ if($python_Version -eq $null)
     exit
 }
 $apiUrl = 'https://ci.appveyor.com/api'
-$downloadLocation = 'c:\libraries'
 $accountName = 'beliaar'
 $projectSlug = 'boost-appveyor'
 
@@ -24,14 +23,14 @@ $artifactFileName = $artifacts[0].fileName
 $localartifactFileName = [System.IO.Path]::GetFileName("$artifactFileName")
 
 # artifact will be downloaded as
-$localArtifactPath = "$downloadLocation/$localartifactFileName" 
+$localArtifactPath = "$env:downloadLocation/$localartifactFileName" 
 
 # download artifact
 # -OutFile - is local file name where artifact will be downloaded into
 Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" -OutFile $localArtifactPath
 
 $folder_name = [System.IO.Path]::GetFileNameWithoutExtension("$artifactFileName")
-$extract_dir = "$downloadLocation/$folder_name"
+$extract_dir = "$env:downloadLocation/$folder_name"
 7z x $localArtifactPath -o"$extract_dir"
 
 #Thanks to TheMadTechnician (http://stackoverflow.com/questions/28843448/powershell-getting-foldername-like-and-get-the-first-subdirectory)
@@ -45,7 +44,7 @@ Param(
     $Paths = 1..$Depth|ForEach{"{0}{1}" -f $Path.trimend('\'), ("\*" * $_)}
     Get-ChildItem -Path $Paths -Filter $Filter
 }
-$include_dir = GCI-ToDepth -Path "$downloadLocation/$folder_name/include" -Depth 1
+$include_dir = GCI-ToDepth -Path "$env:downloadLocation/$folder_name/include" -Depth 1
 
-$env:BOOST_LIBRARYDIR = "$downloadLocation/$folder_name/lib"
+$env:BOOST_LIBRARYDIR = "$env:downloadLocation/$folder_name/lib"
 $env:BOOST_INCLUDEDIR = "$include_dir"
