@@ -45,6 +45,8 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
         "Operating System :: POSIX",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: C++"
         "Topic :: Games/Entertainment",
