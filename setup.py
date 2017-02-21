@@ -56,11 +56,6 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
         "Topic :: Software Development :: Widget Sets",
     ],
     
-    packages = [
-        "PyCEGUI" # nasty nasty wrapper for a nasty nasty OS
-    ],
-     
-    
     # the first string is directory where the files should go
     # - leave empty for C:/Python26 for example
     data_files = [
@@ -69,6 +64,7 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
         ("Lib/site-packages/PyCEGUI",
         # this is obviously a workaround, I would be happy to hear what the clean
         # solution should look like
+            glob(".\PyCEGUI\*.py") +
             glob(os.path.join(BOOST_BASEDIR + "/lib/", "boost_python*.dll")) +
             [
                 CEGUI_BASEDIR + "/bin/CEGUIBase-0.dll",
