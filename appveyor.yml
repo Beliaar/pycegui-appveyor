@@ -89,12 +89,8 @@ after_build:
   - cd ..
   # package pycegui artifact
   - ps: ."$env:PYTHON\python.exe" setup.py bdist_wininst --target-version="$env:PYTHON_VERSION"
-  - ps: Get-ChildItem .\dist\PyCEGUI-*.exe | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\dist\PyCEGUI-*.exe | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName pyCEGUI}
 
 
 on_finish:
   #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-artifacts:
-  - path: 'PyCEGUI-*.exe'
-    name: pyCEGUI
