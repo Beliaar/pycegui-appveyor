@@ -64,16 +64,20 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
         ("Lib/site-packages/PyCEGUI",
         # this is obviously a workaround, I would be happy to hear what the clean
         # solution should look like
-            glob(".\PyCEGUI\*.py") +
+            glob(".\PyCEGUI\*.pyd") +
             glob(os.path.join(BOOST_BASEDIR + "/lib/", "boost_python*.dll")) +
             [
                 CEGUI_BASEDIR + "/bin/CEGUIBase-0.dll",
                 CEGUI_BASEDIR + "/bin/freetype.dll",
                 CEGUI_BASEDIR + "/bin/pcre.dll",
                 CEGUI_BASEDIR + "/bin/minizip.dll",
-                CEGUI_BASEDIR + "/bin/zlib.dll",
                 CEGUI_BASEDIR + "/bin/CEGUIOpenGLRenderer-0.dll",
                 CEGUI_BASEDIR + "/bin/glew.dll",
+            ]
+        ),
+        ("Lib/site-packages/PyCEGUI/extra_dlls",
+            [
+                CEGUI_BASEDIR + "/bin/zlib.dll",
                 CEGUI_BASEDIR + "/bin/CEGUICommonDialogs-0.dll",
                 CEGUI_BASEDIR + "/bin/CEGUICoreWindowRendererSet.dll",
                 CEGUI_BASEDIR + "/bin/CEGUISillyImageCodec.dll",
@@ -83,9 +87,6 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
                 CEGUI_BASEDIR + "/bin/CEGUIExpatParser.dll",
                 CEGUI_BASEDIR + "/bin/libexpat.dll",
             ]
-        ),
-        ("Lib/site-packages/PyCEGUI/pyd",
-            glob(".\PyCEGUI\pyd\*.pyd")
         ),
         # distutils doesn't allow to bundle folders (or to be precise: I have no idea how to do that)
         # therefore I do this the ugly way!

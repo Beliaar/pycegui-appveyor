@@ -78,7 +78,7 @@ build_script:
     cmake ..
     -G "%generator%" 
     -DCMAKE_BUILD_TYPE=%configuration% 
-    -DCMAKE_INSTALL_PREFIX="../PyCEGUI/pyd" 
+    -DCMAKE_INSTALL_PREFIX="../PyCEGUI"
     -DCEGUI_BUILD_RENDERER_OPENGL="On"
   # build
   - cmake --build . --target ALL_BUILD --config %configuration% -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
