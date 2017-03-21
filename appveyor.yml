@@ -63,7 +63,6 @@ install:
   # get dependencies
   - ps: ./dl_extract_boost_python.ps1 $env:PYTHON_VERSION
   - ps: ./dl_extract_cegui-sdk.ps1
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   
 #before_build:
   # git sh.exe conflicts with MinGW makefiles

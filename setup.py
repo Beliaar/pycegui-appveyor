@@ -7,7 +7,7 @@ from glob import *
 
 CEGUI_BASEDIR = os.environ["CEGUI_DIR"]
 is_64bits = sys.maxsize > 2**32
-BOOST_BASEDIR = os.environ["BOOST_LIBRARYDIR"]
+BOOST_LIBRARYDIR = os.environ["BOOST_LIBRARYDIR"]
 
 
 
@@ -65,7 +65,7 @@ note: For Linux and MacOSX packages, see http://www.cegui.org.uk, we provide the
         # this is obviously a workaround, I would be happy to hear what the clean
         # solution should look like
             glob(".\PyCEGUI\*.pyd") +
-            glob(os.path.join(BOOST_BASEDIR + "/lib/", "boost_python*.dll")) +
+            glob(os.path.join(BOOST_LIBRARYDIR + "boost_python*.dll")) +
             [
                 CEGUI_BASEDIR + "/bin/CEGUIBase-0.dll",
                 CEGUI_BASEDIR + "/bin/freetype.dll",
